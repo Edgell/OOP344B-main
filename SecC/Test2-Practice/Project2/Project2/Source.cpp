@@ -5,7 +5,7 @@
 #define NEWLINE std::cout << std::endl
 #define QN(n,m) std::cout << "Part " << n << " [" << m << " Marks]---------" << std::endl
 
-enum Type { GRASS = 1, FIRE, WATER, ELECTRIC, FUSED };
+enum Type { FUSED = 1, WATER, ELECTRIC, FIRE, GRASS };
 
 class Exception {
    public:
@@ -76,7 +76,7 @@ int rend(int a, int b, int c, bool d = false) {
 }
 
 void cheer(std::vector<std::string> w) {
-   bool toggle = false;
+   bool toggle = true;
    auto i = w.begin();
    auto e = w.end() - 1;
    while(i <= e) {
@@ -92,30 +92,30 @@ void cheer(std::vector<std::string> w) {
 
 
 void confuse() {
-   unsigned char victim = 127u;
-   victim = victim << 4;
-   victim = victim >> 1;
-   victim = (63u >> 1) & victim;
+   unsigned char victim = 255u;
+   victim = victim << 3;
+   victim = victim >> 2;
+   victim = (170u >> 1) & victim;
    victim = (~127u) | victim;
-   victim = 96u ^ victim;
-   victim = victim << 7 | victim >> 1;
+   victim = 7u ^ victim;
+   victim = victim >> 7 | victim << 1;
    std::cout << "Survey Says: " << static_cast<int>(victim) << std::endl;
 }
 
-void yellowBall() { throw(TypedException<FIRE>("Which hand will catch?")); }
+void yellowBall() { throw(TypedException<GRASS>("Which hand will catch?")); }
 
 void blueBall() {
-   try { throw(TypedException<WATER>("Blue to Red")); }
-   catch(TypedException<WATER> e) {
-      std::cout << "Water ";
+   try { throw(TypedException<FIRE>("Blue to Red")); }
+   catch(TypedException<FIRE> e) {
+      std::cout << "Fire ";
       yellowBall();
    }
 }
 
 void redBall() {
    try { blueBall(); }
-   catch(TypedException<FIRE> e) {
-      std::cout << "Fire ";
+   catch(TypedException<GRASS> e) {
+      std::cout << "Grass ";
       throw(AdvancedGrassException("Red vs Adv Green"));
    }
 }
@@ -141,42 +141,42 @@ int main() {
       try {
          if( i == 8 ) {
             QN(1,'2');
-            Beast<ElementalCatalyst<ELECTRIC>> fb("Quetzalcoatl");
-            fb.printInfo();
-            fb.printMaterial();
-         }         
-  if( i == 7 ) {
-            QN(2,'3');
-            Beast<ElementalCatalyst<FUSED>, ElementalCatalyst<WATER>, 
-               ElementalCatalyst<ELECTRIC>> fb("Xorob", "Dyria", "Quetzalcoatl");
+            Beast<ElementalCatalyst<FIRE>> fb("Ifrit");
             fb.printInfo();
             fb.printMaterial();
          }
-         if( i == 6 ) {
-            QN(3,'3');
-            Beast<ElementalCatalyst<FIRE>> wb("Cerberus");
-            Beast<ElementalCatalyst<FIRE>> db("Volcarona");
+         if( i == 7 ) {
+            QN(2,'3');
+            Beast<ElementalCatalyst<WATER>> wb("Chaos");
+            Beast<ElementalCatalyst<WATER>> db("Dyria");
             wb.printInfo();
             wb.printMaterial();
             db.printInfo();
             db.printMaterial();
          }
+         if( i == 6 ) {
+            QN(3,'3');
+            Beast<ElementalCatalyst<FUSED>, ElementalCatalyst<WATER>, 
+               ElementalCatalyst<ELECTRIC>> fb("Barox", "Dyria", "Ryu");
+            fb.printInfo();
+            fb.printMaterial();
+         }
          if( i == 5 ) {
             QN(4,'2');
-            std::cout << "Results! " << rend(21, 8, 20) << std::endl;
+            std::cout << "Results! " << rend(15, 14, 9) << std::endl;
          }
          if( i == 4 ) {
             QN(5,'1');
-            std::cout << "Results! " << rend(15, -1, 211) << std::endl;
+            std::cout << "Results! " << rend(342, 123, 435) << std::endl;
          }
          if( i == 3 ) {
             QN(6,'1');
             std::vector<std::string> w;
-            w.push_back("Such code ");
-            w.push_back("Very iterative ");
-            w.push_back("Wow ");
-            w.push_back("Much think ");
-            w.push_back("Wow ");
+            w.push_back("Weekend ");
+            w.push_back("Starts ");
+            w.push_back("Friday ");
+            w.push_back("This ");
+            w.push_back("Madness!! ");
             cheer(w);
          }
          if( i == 2 ) {
